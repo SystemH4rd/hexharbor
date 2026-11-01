@@ -26,7 +26,15 @@ The phone test uses a reserved example number, not a person. Photo fixtures are 
 
 ## Publication gate
 
-The release branch must pass pull-request verification (npm ci, build, tests and artifact checks) before merging. Main then publishes only docs/ via the existing Pages Actions configuration with HTTPS. Production verification must additionally exercise browser DoH without the preview API and confirm Web Crypto SHA-256 on the actual HTTPS origin. Record the corresponding commit, workflow run and live acceptance below when complete.
+PUBLISHED AND VERIFIED: https://systemh4rd.github.io/hexharbor/v2/ .
+
+Pull request #1 passed verification before squash merge: https://github.com/SystemH4rd/hexharbor/pull/1 . PR run: https://github.com/SystemH4rd/hexharbor/actions/runs/41358756934 . Application commit: ba1cb30b7dd8f12a5917cf1b634b34c8e93f4ed8 . Successful Pages deployment: https://github.com/SystemH4rd/hexharbor/actions/runs/41358894259 . The 42 remote source file blobs matched local checked bytes before merge; only docs/ is published.
+
+Production browser acceptance: HTTPS loaded without a certificate warning. The default Pages configuration used browser-doh directly and returned five actual Google DNS observations plus the explicit unknown mailbox scope for example.org. Null MX, A/AAAA, SPF and DMARC were visible with provenance and TTLs, without the preview-API fallback notice. The generated local PNG returned four findings, including observed SHA-256 (380ba1121dae03150dbd47df14ddd95f3239882cd63f72d79fa45ea00fec1e01), actual 640 x 360 header dimensions and 11872 bytes. The production phone Worker returned three findings for +12025550142 with metadata version 1.13.7 and unknown owner/activity. The architecture dialog and v2-to-v1 navigation worked; the v1 banner linked back to v2. No application console errors or warnings were observed; unrelated extension metadata errors were excluded.
+
+An additional production JPEG file-chooser test could not complete because the browser automation timed out and reset. It is not claimed as passed. Actual JPEG/PNG/WebP byte/hash checks and JPEG EXIF-camera/GPS-redaction checks passed in the automated analyzer tests; the generated-image browser path passed on production HTTPS.
+
+The optional HTTP API remains self-host ready and is not publicly deployed. No subscriber activity/owner, mailbox existence or image authenticity is asserted. Version 1 remains available at the root with a link to v2.
 
 ## Version 1 record
 
