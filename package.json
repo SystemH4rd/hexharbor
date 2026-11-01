@@ -1,0 +1,15 @@
+{
+  "name": "hexharbor",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Buildless cyberpunk OSINT demo dashboard for GitHub Pages",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "check": "node scripts/check.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "MIT"
+}
