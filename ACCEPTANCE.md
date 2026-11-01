@@ -1,3 +1,35 @@
+# HexHarbor 2.0 acceptance — 2026-11-01
+
+## Release and verification scope
+
+Version 2 introduces actual public DNS observations and local metadata measurements. GitHub Pages hosts the static frontend; the optional Node API is implemented and tested but is not claimed as publicly deployed. Version 1 remains the labeled synthetic demo at the root.
+
+## Checks performed before publication
+
+| Check | Observed result |
+| --- | --- |
+| Behavior and HTTP integration tests | 27 passed: 6 legacy, 15 live analyzer, 6 HTTP API tests |
+| Static artifact verification | 28 public files; local references, both contracts/configs, library pins/licenses and SHA-256 provenance checked; no credential-pattern matches |
+| JavaScript and shell syntax | 15 JS/MJS files parsed; publish helper passed bash -n |
+| Browser live DNS | example.org returned actual Google DNS answers: Null MX, A/AAAA, SPF and DMARC; source URLs, observation times and TTLs displayed |
+| Optional API fallback | Preview server upstream did not complete; visible notice appeared and browser DoH supplied actual answers; no demo substitutions |
+| Phone Worker | Reserved test number normalized to +12025550142; numbering-plan facts shown as derived; activity and owner unknown |
+| Photo Worker on HTTP preview | Generated PNG measured as 640 x 360, actual 11872 bytes; no EXIF GPS found; SHA-256 marked unknown because remote HTTP lacks Web Crypto |
+| Browser JSON download | All 4 photo findings exported; file name hidden by default; no image bytes or raw request included |
+| Evidence filtering | Unknown filter showed the 2 applicable HTTP-preview photo findings |
+| Input validation | Empty email showed a clear Ukrainian error and focused the input |
+| Project prefix and layout | Nested /hexharbor/v2/ loaded correctly; phone results rendered at iframe widths 360, 390, 768, 1440; scrollWidth equaled clientWidth in each |
+| Mobile menu and source dialog | Keyboard menu and 4-source registry worked at 360px; no horizontal overflow |
+| Source/privacy review | Live code does not read demo fixtures, persist input, upload photos or contain provider credentials; no reverse image or face recognition |
+
+The phone test uses a reserved example number, not a person. Photo fixtures are synthetic. Responsive checks use browser iframe viewports, not physical devices. The credential scan is a supplement to source review, not a guarantee for future edits. Tests simulate provider answers for determinism; the separate browser DNS check above used the actual live service.
+
+## Publication gate
+
+The release branch must pass pull-request verification (npm ci, build, tests and artifact checks) before merging. Main then publishes only docs/ via the existing Pages Actions configuration with HTTPS. Production verification must additionally exercise browser DoH without the preview API and confirm Web Crypto SHA-256 on the actual HTTPS origin. Record the corresponding commit, workflow run and live acceptance below when complete.
+
+## Version 1 record
+
 # HexHarbor acceptance — 2026-11-01
 
 Status: PUBLISHED AND VERIFIED. Live site: https://systemh4rd.github.io/hexharbor/ . Repository: https://github.com/SystemH4rd/hexharbor . GitHub Actions deployment succeeded; HTTPS is enforced on the default domain.
