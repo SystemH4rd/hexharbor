@@ -1,6 +1,6 @@
 # HexHarbor acceptance — 2026-11-01
 
-Status: static demo implemented and locally checked. Repository https://github.com/SystemH4rd/hexharbor created; Pages source is GitHub Actions; HTTPS is enforced on the default domain. First deployment and live-site acceptance are pending.
+Status: PUBLISHED AND VERIFIED. Live site: https://systemh4rd.github.io/hexharbor/ . Repository: https://github.com/SystemH4rd/hexharbor . GitHub Actions deployment succeeded; HTTPS is enforced on the default domain.
 
 ## Implemented
 
@@ -32,15 +32,17 @@ Responsive verification used browser iframes, not a physical Android/iOS device.
 
 ## Deployment contract
 
-Separate repository name: hexharbor, owner to be verified at creation. Source: main. Public artifact: docs/. Preferred workflow: .github/workflows/pages.yml with GitHub Pages source set to GitHub Actions. Standard short-lived Pages permissions only; no personal access token required by the workflow.
+Separate repository: SystemH4rd/hexharbor; owner verified in the GitHub creation form and repository UI. Source: main. Public artifact: docs/. Preferred workflow: .github/workflows/pages.yml with GitHub Pages source set to GitHub Actions. Standard short-lived Pages permissions only; no personal access token required by the workflow.
 
-Before claiming deployment complete: verify successful GitHub Pages deployment, actual public URL, HTTPS certificate, HTTP-to-HTTPS behavior, assets, navigation and demo behavior on that URL. Then record repository URL, published SHA and live URL in AWA-7.
+First deployment succeeded: https://github.com/SystemH4rd/hexharbor/actions/runs/41348119717 . Initial published application commit: a687215e2e20e27769ea16903bca43edd4bb6e7c. The subsequent documentation edits do not change the static application files.
+
+Live acceptance: the HTTPS site loaded without a certificate warning; entering the HTTP URL navigated to HTTPS. Phone, email and photo examples each displayed 3 cards. The sources dialog displayed 3 entries and navigation worked. No application console warnings/errors were observed. All 22 remote file blob hashes matched the checked local source at the first application deployment.
 
 ## Linear relationships
 
 AWA-5: implemented static interface.
 AWA-6: result schema, provenance display and synthetic source registry implemented for demo; live source integration remains outside this release.
-AWA-7: consumes the checked static interface; public deployment pending GitHub authentication.
+AWA-7: static interface published and verified at the live HTTPS URL; deployment evidence is recorded in the issue.
 
 No live monitoring, reverse image search or real owner lookup is implemented.
 
