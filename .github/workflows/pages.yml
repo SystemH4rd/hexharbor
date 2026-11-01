@@ -2,22 +2,33 @@ name: Publish HexHarbor
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: false
 jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install pinned dependencies
+        run: npm ci
+      - name: Build local browser libraries and licenses
+        run: npm run build
       - name: Test behavior
         run: npm test
-      - name: Verify static files and demo data
+      - name: Verify public artifact and both result contracts
         run: npm run check
       - name: Upload public site only
+        if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v4
         with:
           path: docs

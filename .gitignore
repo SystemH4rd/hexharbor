@@ -1,5 +1,6 @@
 .openai/
 node_modules/
+docs/v2/vendor/
 .env
 .env.*
 *.pem

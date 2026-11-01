@@ -1,15 +1,22 @@
 {
   "name": "hexharbor",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
-  "description": "Buildless cyberpunk OSINT demo dashboard for GitHub Pages",
+  "description": "Technical evidence checks with shared analyzers and a separate HTTP API",
   "scripts": {
+    "dev": "node server/index.mjs",
+    "start": "node server/index.mjs",
+    "build": "node scripts/vendor.mjs",
     "test": "node --test tests/*.test.mjs",
     "check": "node scripts/check.mjs"
   },
   "engines": {
     "node": ">=22"
+  },
+  "dependencies": {
+    "exifr": "7.1.3",
+    "libphonenumber-js": "1.13.7"
   },
   "license": "MIT"
 }
