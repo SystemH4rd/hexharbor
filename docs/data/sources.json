@@ -1,0 +1,30 @@
+{
+  "mode": "demo",
+  "sources": [
+    {
+      "id": "example-org",
+      "name": "Учебный профиль / проект / коллекция",
+      "url": "https://example.org/",
+      "type": "synthetic",
+      "access": "Локальная фикстура; API не вызывается",
+      "restrictions": "Только демонстрация. Не содержит сведений о реальных людях."
+    },
+    {
+      "id": "example-com",
+      "name": "Учебное упоминание / сходство",
+      "url": "https://example.com/",
+      "type": "synthetic",
+      "access": "Локальная фикстура; API не вызывается",
+      "restrictions": "Статус unverified. Не использовать как установленный факт."
+    },
+    {
+      "id": "example-net",
+      "name": "Учебная запись / публикация",
+      "url": "https://example.net/",
+      "type": "synthetic",
+      "access": "Локальная фикстура; API не вызывается",
+      "restrictions": "Иллюстрация формата происхождения и времени."
+    }
+  ]
+}
+
