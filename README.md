@@ -1,5 +1,7 @@
 # HexHarbor
 
+[Open the live demo](https://systemh4rd.github.io/hexharbor/) · [Deployment checks](https://github.com/SystemH4rd/hexharbor/actions)
+
 Cyberpunk OSINT workspace: phone, email and photo inputs, source cards, a relationship map and JSON export. The UI is in Russian. This release is a **static demonstration**. Every result and score is synthetic, including the "verified" examples.
 
 ## Run
