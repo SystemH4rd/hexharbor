@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080d12">
+  <meta name="description" content="HexHarbor — демонстрационная панель открытых данных: телефон, email и фото. Все примеры синтетические.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' blob: data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <title>HexHarbor — OSINT Workspace</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/mark.svg">
+  <link rel="stylesheet" href="./assets/styles.css">
+  <script type="module" src="./assets/app.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#workspace">Перейти к анализу</a>
+<div class="shell">
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="#phone" aria-label="HexHarbor — обзор"><img src="./assets/mark.svg" alt="" width="38" height="38"><span>Hex<span class="brand-light">Harbor</span><small>OPEN SOURCE INTELLIGENCE</small></span></a>
+    <div class="nav-label">РАБОЧЕЕ ПРОСТРАНСТВО</div>
+    <nav aria-label="Основная навигация">
+      <a href="#phone" class="nav-item selected" data-nav="workspace"><span aria-hidden="true">▦</span> Обзор <span class="nav-shortcut">01</span></a>
+      <a href="#sources" class="nav-item"><span aria-hidden="true">◈</span> Источники <span class="nav-shortcut">02</span></a>
+      <a href="#about" class="nav-item"><span aria-hidden="true">⌘</span> О проекте <span class="nav-shortcut">03</span></a>
+    </nav>
+    <div class="sidebar-note"><span class="tiny-dot"></span> ДЕМОНСТРАЦИОННАЯ СРЕДА<p>Изучайте связи на открытых примерах.</p><div class="mini-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+    <div class="sidebar-bottom"><span class="lock-icon" aria-hidden="true">◇</span><div>Данные остаются у вас<small>Без регистрации и сохранения ввода</small></div></div>
+  </aside>
+  <div class="main-shell">
+    <header class="topbar"><button class="menu-button" id="menu-toggle" type="button" aria-expanded="false" aria-controls="sidebar" aria-label="Открыть меню">☰</button><div class="breadcrumb">WORKSPACE <span>/</span> <strong>Обзор</strong></div><div class="topbar-status"><span class="tiny-dot"></span> Локальный деморежим <span class="version">V1.0</span></div></header>
+    <main id="workspace" tabindex="-1">
+      <section class="page-heading"><div><div class="eyebrow"><span></span> ИССЛЕДУЙТЕ. СОПОСТАВЛЯЙТЕ. ПОНИМАЙТЕ.</div><h1>Данные обретают <em>связи.</em></h1><p>Единое пространство для анализа телефона, email и изображения.</p></div><div class="heading-code" aria-hidden="true">HH<span>INTELLIGENCE<br>WORKSPACE_</span></div></section>
+      <div class="demo-banner"><span class="banner-icon" aria-hidden="true">◈</span><div><strong>Демонстрационный режим</strong><span>Все совпадения вымышлены. Запросы не передаются в OSINT-сервисы.</span></div><a href="#about">Как это работает <span aria-hidden="true">↗</span></a></div>
+      <div class="workspace-grid">
+        <section class="panel search-panel" aria-labelledby="search-title">
+          <div class="panel-heading"><div><span class="section-index">01</span><h2 id="search-title">Новый анализ</h2></div><span class="panel-label">ВХОДНЫЕ ДАННЫЕ</span></div>
+          <div class="tabs" role="tablist" aria-label="Тип анализа">
+            <button role="tab" id="tab-phone" aria-controls="form-phone" aria-selected="true" data-mode="phone"><span aria-hidden="true">⌕</span> Телефон</button>
+            <button role="tab" id="tab-email" aria-controls="form-email" aria-selected="false" tabindex="-1" data-mode="email"><span aria-hidden="true">@</span> Email</button>
+            <button role="tab" id="tab-photo" aria-controls="form-photo" aria-selected="false" tabindex="-1" data-mode="photo"><span aria-hidden="true">▧</span> Фото</button>
+          </div>
+          <form id="analysis-form" novalidate>
+            <div role="tabpanel" id="form-phone" aria-labelledby="tab-phone">
+              <label for="phone-input">Номер телефона</label><div class="input-wrap"><span aria-hidden="true">⌕</span><input id="phone-input" type="tel" autocomplete="off" inputmode="tel" placeholder="+1 202 555 0142" aria-describedby="phone-hint input-error" maxlength="32"></div><p class="field-hint" id="phone-hint">Международный формат с кодом страны.</p>
+            </div>
+            <div role="tabpanel" id="form-email" aria-labelledby="tab-email" hidden>
+              <label for="email-input">Адрес электронной почты</label><div class="input-wrap"><span aria-hidden="true">@</span><input id="email-input" type="email" autocomplete="off" placeholder="example@example.org" aria-describedby="email-hint input-error" maxlength="254"></div><p class="field-hint" id="email-hint">В примере используется зарезервированный домен example.org.</p>
+            </div>
+            <div role="tabpanel" id="form-photo" aria-labelledby="tab-photo" hidden>
+              <label for="photo-input">Изображение</label><div class="upload-zone" id="upload-zone"><span aria-hidden="true">▧</span><strong>Выберите изображение</strong><small>JPEG, PNG или WebP · до 5 МБ</small><input id="photo-input" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="photo-hint input-error"></div><div class="photo-preview" id="photo-preview" hidden><img id="preview-image" alt="Предпросмотр выбранного изображения"><div><strong id="photo-name"></strong><small>Файл остаётся в этом браузере</small><button id="remove-photo" class="text-button" type="button">Убрать фото</button></div></div><p class="field-hint" id="photo-hint">Демо показывает структуру результата; распознавание лиц не выполняется.</p>
+            </div>
+            <p id="input-error" class="field-error" role="alert" hidden></p>
+            <div class="form-actions"><button class="primary-button" type="submit" id="analyze-button"><span aria-hidden="true">⌕</span> Запустить демоанализ <span aria-hidden="true">↗</span></button><button class="icon-button" type="button" id="clear-button" aria-label="Очистить запрос" title="Очистить запрос">↺</button></div>
+            <div class="example-line"><span>Нет данных под рукой?</span><button type="button" class="text-button" id="example-button">Показать пример ↗</button></div>
+            <div class="scenario-line"><label for="scenario">Сценарий демо</label><select id="scenario"><option value="success">Результаты найдены</option><option value="empty">Нет результатов</option><option value="error">Ошибка источника</option></select></div>
+          </form>
+        </section>
+        <section class="panel graph-panel" aria-labelledby="graph-title">
+          <div class="panel-heading"><div><span class="section-index">02</span><h2 id="graph-title">Карта связей</h2></div><span class="live-label"><span class="tiny-dot"></span> ДЕМО</span></div>
+          <div class="graph-stage"><svg id="relation-graph" viewBox="0 0 480 240" role="img" aria-label="Демонстрационная карта связей"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#1c3039"/></pattern></defs><rect width="480" height="240" fill="url(#dots)"/><g id="graph-edges"></g><g id="graph-nodes"></g></svg><div class="graph-empty" id="graph-empty"><span>◈</span>Связи появятся после анализа</div></div><div class="graph-footer"><span><i></i> Тестовый запрос</span><span><i></i> Пример источника</span><strong id="graph-count">0 связей</strong></div>
+        </section>
+      </div>
+      <section class="metrics" aria-label="Итог анализа"><div><span class="metric-icon" aria-hidden="true">◈</span><div><span>Источников в ответе</span><strong id="metric-total">00</strong></div><small>ДЕМО</small></div><div><span class="metric-icon" aria-hidden="true">✓</span><div><span>Подтверждено в примере</span><strong id="metric-verified">00</strong></div><small>ДЕМО</small></div><div><span class="metric-icon amber" aria-hidden="true">◇</span><div><span>Требует проверки</span><strong id="metric-unverified">00</strong></div><small>ДЕМО</small></div></section>
+      <section class="panel results-panel" aria-labelledby="results-title" aria-busy="false">
+        <div class="panel-heading result-heading"><div><span class="section-index">03</span><h2 id="results-title">Результаты анализа</h2><span class="count-badge" id="result-count">0</span></div><button type="button" id="export-button" class="secondary-button" disabled>↓ Экспорт демо</button></div>
+        <div class="results-toolbar"><div class="filters" role="group" aria-label="Фильтр результатов"><button type="button" data-filter="all" aria-pressed="true">Все</button><button type="button" data-filter="verified" aria-pressed="false">Подтверждено</button><button type="button" data-filter="unverified" aria-pressed="false">Требует проверки</button></div><span id="result-context">Ожидание запроса</span></div>
+        <div id="results" class="results-body"><div class="empty-state"><span aria-hidden="true">⌕</span><h3>Каждое исследование начинается с запроса</h3><p>Выберите тип данных или откройте готовый пример.</p><button class="text-button" id="empty-example" type="button">Открыть демопример ↗</button></div></div>
+      </section>
+      <div class="status-line" role="status" aria-live="polite" id="status-line">Готово к работе. Используются только демонстрационные данные.</div>
+      <footer><span>HexHarbor <span class="footer-divider">/</span> OPEN SOURCE INTELLIGENCE</span><a href="#about">Приватность и деморежим ↗</a><span>Сначала источник. Затем вывод.</span></footer>
+    </main>
+  </div>
+</div>
+<dialog id="info-dialog" aria-labelledby="dialog-title"><div class="dialog-heading"><span class="eyebrow">HEXHARBOR / WORKSPACE</span><button id="dialog-close" class="icon-button" aria-label="Закрыть окно" type="button">×</button></div><h2 id="dialog-title"></h2><div id="dialog-content"></div></dialog>
+</body>
+</html>
+
