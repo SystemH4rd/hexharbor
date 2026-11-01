@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "HexHarbor demonstration result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "inputType",
+    "source",
+    "sourceUrl",
+    "observedAt",
+    "confidence",
+    "verificationStatus",
+    "summary",
+    "category",
+    "detail"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "inputType": {
+      "enum": [
+        "phone",
+        "email",
+        "photo"
+      ]
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sourceUrl": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://"
+    },
+    "observedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "confidence": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Illustrative demo score, not a calibrated probability"
+    },
+    "verificationStatus": {
+      "enum": [
+        "verified",
+        "unverified"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "category": {
+      "type": "string",
+      "minLength": 1
+    },
+    "detail": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}
+
