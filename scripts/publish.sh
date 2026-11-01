@@ -11,6 +11,8 @@ if [ "$account" != "SystemH4rd" ]; then
   exit 1
 fi
 repo="$account/hexharbor"
+npm ci
+npm run build
 npm test
 npm run check
 if gh repo view "$repo" --json name --jq .name >/dev/null 2>&1; then
@@ -32,10 +34,10 @@ if ! git config user.email >/dev/null; then
   account_id="$(gh api user --jq .id)"
   git config user.email "$account_id+$account@users.noreply.github.com"
 fi
-git add .gitignore package.json docs README.md START_HERE.md ARCHITECTURE.md ACCEPTANCE.md LICENSE scripts tests .github
-if ! git diff --cached --quiet; then git commit -m "Build checked HexHarbor static demo"; fi
+git add .gitignore package.json package-lock.json docs README.md START_HERE.md ARCHITECTURE.md ACCEPTANCE.md SOURCES.md API.md LICENSE scripts tests server .github
+if ! git diff --cached --quiet; then git commit -m "Build checked HexHarbor live evidence workspace"; fi
 gh auth setup-git --hostname github.com
-gh repo create "$repo" --public --description "HexHarbor cyberpunk OSINT workspace — synthetic static demo" --source . --remote origin --push
+gh repo create "$repo" --public --description "HexHarbor technical evidence workspace — live DNS and local metadata" --source . --remote origin --push
 gh api --method POST "repos/$repo/pages" -f build_type=workflow >/dev/null
 gh workflow run pages.yml --repo "$repo" --ref main
 run_id=""
@@ -57,5 +59,5 @@ case "$site_url" in
 esac
 curl --fail --silent --show-error --location --retry 10 --retry-delay 3 --retry-all-errors --max-time 15 --output /dev/null "$site_url"
 printf '\nPublished: %s\nCommit: %s\n' "$site_url" "$(git rev-parse HEAD)"
-printf 'Verify the demo navigation and mobile layout at the live URL.\n'
+printf 'Verify v2/ live DNS, local metadata and mobile navigation at the live URL.\n'
 
