@@ -1,46 +1,54 @@
-# HexHarbor
+# HexHarbor 2.0 — Live Evidence
 
-[Open the live demo](https://systemh4rd.github.io/hexharbor/) · [Deployment checks](https://github.com/SystemH4rd/hexharbor/actions)
+[Open v2](https://systemh4rd.github.io/hexharbor/v2/) · [Original demo](https://systemh4rd.github.io/hexharbor/) · [Deployment checks](https://github.com/SystemH4rd/hexharbor/actions)
 
-Cyberpunk OSINT workspace: phone, email and photo inputs, source cards, a relationship map and JSON export. The UI is in Russian. This release is a **static demonstration**. Every result and score is synthetic, including the "verified" examples.
+An evidence workspace in Ukrainian. Results come from actual DNS responses, numbering-plan metadata or the selected image bytes. Every finding carries a source, observation time and explicit scope. Version 1 remains available as a clearly marked synthetic demonstration.
 
-## Run
+| Input | Actual result | Boundary |
+| --- | --- | --- |
+| Email | MX, A, AAAA, SPF and DMARC records from Google DNS, with Cloudflare failover | Only the domain leaves the browser; mailbox existence and owner are unknown |
+| Phone | E.164, region, format, possible/valid and type from pinned libphonenumber-js max metadata | Local rules do not establish activity, ownership or current carrier |
+| Photo | Header dimensions, byte size, SHA-256 and supported EXIF from the selected JPEG/PNG/WebP | Local processing; no face recognition or reverse search; WebP EXIF is unsupported |
 
-Node.js 22+ is needed only for checks. The website has no dependencies and no build step.
+There are no illustrative confidence scores in v2. Status is `observed`, `derived`, `unknown` or `error`. Failure never produces demo answers. The in-app examples execute the same analyzers as user input. A generated test PNG is a test image, not a source fixture.
+
+## Run and verify
+
+Node.js 22+ and npm are required. Dependencies and lockfile are pinned.
 
 ```sh
+npm ci
+npm run build
 npm test
 npm run check
-python3 -m http.server 8000 --directory docs
+npm start
 ```
 
-Open http://localhost:8000. All public files are inside `docs/`. The module loads only same-origin JSON fixtures; no real OSINT services are called. There are no accounts, analytics, persistent query history or API keys. Selected images stay in browser memory and are never uploaded. Export includes only demo records, never the user's input or image.
+Open `http://localhost:4173/v2/`. The Node server provides the UI and optional HTTP API. The Pages artifact uses browser DNS over HTTPS directly; Pages does not execute the Node backend. For static-only local testing, serve `docs/` on localhost after building. Web Crypto requires HTTPS or a browser-trusted localhost context. Plain HTTP remote hosts show the hash as unavailable while continuing other photo checks.
+
+## Architecture and files
+
+- `docs/v2/app.js`: forms, cancellation, safe DOM rendering, filtering and export.
+- `docs/v2/worker.js`: local phone and photo work off the UI thread.
+- `docs/v2/lib/`: shared normalization, evidence model and email/phone/photo analyzers.
+- `docs/v2/schema/result.schema.json`: independent v2 evidence contract.
+- `server/`: optional Node HTTP API; no database, query history or image-upload endpoint.
+- `scripts/vendor.mjs`: generates local browser libraries, licenses and hash provenance from the lockfile installation.
+- `tests/`: behavior and HTTP integration tests with isolated deterministic inputs.
+- `docs/assets/`, `docs/data/`: retained v1 demo and shared presentation assets.
+
+See [architecture](ARCHITECTURE.md), [source registry](SOURCES.md), [API deployment](API.md), [quick start](START_HERE.md) and [acceptance evidence](ACCEPTANCE.md).
 
 ## GitHub Pages
 
-Publish this repository as a project site named `hexharbor`. In Settings → Pages choose Source → GitHub Actions. The workflow `.github/workflows/pages.yml` runs behavior tests and validates public files, then deploys only `docs/` on pushes to `main` or manual dispatch. It requires the standard ephemeral Pages permissions, not a personal access token.
+The existing repository uses Settings → Pages → Source: **GitHub Actions**. A pull request runs install, build, tests and artifact checks. A successful push to `main` then deploys **only docs/**. Browser libraries are generated in CI and intentionally excluded from source control. Use `npm ci && npm run build` before local tests; branch publishing of unbuilt source would omit those libraries.
 
-Alternative: choose Deploy from a branch → main → /docs. The `.nojekyll` file disables Jekyll processing.
+The workflow uses short-lived Pages permissions and needs no personal access token. Relative paths support the /hexharbor/ project prefix. Tabs use hash navigation, so direct links and refresh work without server routing. Keep HTTPS enabled. If renaming the repository, update the two v1 references in docs/404.html and the documentation URLs.
 
-Assets and fixture paths work beneath the project prefix. Tabs use hash navigation, including direct links `#phone`, `#email`, `#photo`, `#sources` and `#about`. If the repository name changes, update the two `/hexharbor/` references in `docs/404.html`.
+## Privacy and limits
 
-## Structure
+Phone numbers and photos stay in browser memory. DNS providers receive the queried domain and normal connection metadata; their own policies apply. There is no application analytics or persistent search history. JSON export is downloaded locally and hides full phone numbers, file names, EXIF dates and hashes by default; the user can explicitly include them. GPS coordinates and camera serial numbers are never exposed. Source URLs and queried domains remain in DNS reports.
 
-- `docs/index.html`: application shell and accessible forms.
-- `docs/assets/app.js`: navigation, local image preview, mock scenarios, cards, map and export.
-- `docs/assets/core.js`: validation, filters, summaries and export contract.
-- `docs/assets/styles.css`: responsive cyberpunk styling and reduced motion.
-- `docs/data/demo.json`: 9 synthetic results, three per mode.
-- `docs/data/sources.json`: explicit synthetic source registry.
-- `docs/schema/result.schema.json`: shared result contract.
-- `tests/core.test.mjs`: behavior regression tests.
-- `scripts/check.mjs`: public artifact/reference/fixture and credential-pattern checks.
-- `ACCEPTANCE.md`: validation results and publication status.
-- `ARCHITECTURE.md`: component relationships and future adapter boundary.
+This is technical evidence, not person identification, mailbox verification, active-number lookup or authenticity certification. EXIF can be edited; metadata can become outdated; DNS answers depend on resolver and time. New protected integrations belong on a separately deployed API. Never embed credentials in static files.
 
-## Limitations
-
-This is not live monitoring, phone owner lookup, email verification, reverse image search or facial recognition. Demo results are independent of entered values. "Verified" means verified only within a synthetic example. Real protected integrations require a separate backend and source-specific authorization; never put server secrets in client code. A private repository does not itself make a Pages site private.
-
-License: MIT.
-
+Project license: MIT. Included library and metadata licenses are listed in [SOURCES.md](SOURCES.md) and included in the built site.
